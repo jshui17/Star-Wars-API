@@ -1,1 +1,2 @@
 # Star-Wars-API
+This python file utilizes the Python requests library to make a call to the Star Wars API (https://swapi.dev/) and outputs an organized list of Character Species to their corresponding Names.

@@ -1,6 +1,10 @@
 from collections import defaultdict
 import requests
 
+'''
+This function utilizes the requests library to retrieve a json response from the url parameter.
+If an invalid url is passed in, an error message is printed
+'''
 def retrieve_json(url):
     response=requests.get(url)
     if response.status_code == 200:
@@ -12,7 +16,7 @@ def retrieve_json(url):
 '''
 This function loops through every character in the json file, 
 checks if species is specified as first item in list struc, else label the character as "Miscellaneous", 
-and adds key value pair of specicies and name to dict.
+and adds key value pair of species and name to dict.
 (default dict is needed as opposed to a standard dict so no KeyError is raised when trying to access a key not already in the dict)
 '''
 def raw_characters():
@@ -32,9 +36,9 @@ def raw_characters():
 
 '''
 This function loops through the characters_list dict's key value pairs.
-Prints the key (species) followed by a new line of hypens and the values (names) that correspond
+Stores the key (species) followed by a new line of hypens and the values (names) that correspond in a list
 '''
-def display_list(characters_list):
+def format_list(characters_list):
     for species, names, in characters_list.items():
         print(f"{species}: ")
         print("-" * (len(species)))
@@ -43,4 +47,4 @@ def display_list(characters_list):
         print("\n")
 
 if __name__ == "__main__":
-    print(display_list(raw_characters()))
+    format_list(raw_characters())
