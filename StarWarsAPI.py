@@ -1,3 +1,4 @@
+from collections import defaultdict
 import requests
 
 def retrieve_json(url):
@@ -8,7 +9,26 @@ def retrieve_json(url):
         print(f"Failed to retrieve json from {url}")
         return None
 
-   
+'''
+This function loops through every character in the json file, 
+checks if species is specified as first item in list struc, else label the character as "Miscellaneous", 
+and adds key value pair of specicies and name to dictionary.
+(default dict is needed so no KeyError is raised when trying to access a key not already in the dict)
+'''
+def raw_characters():
+    characters_url="https://swapi.dev/api/people/"
+    characters_list=defaultdict(list)
+    while characters_url:
+        data = retrieve_json(characters_url)
+        if not data:
+            break
+        for character in data['results']:
+            name = character['name']
+            species = character['species'][0] if character['species'] else "Miscellaneous"
+            characters_list[species].append(name)
+        characters_url = data.get('next') 
+    
+    return characters_list
 
 if __name__ == "__main__":
-    retrieve_json("https://swapi.dev/api/planets/1/")
+    print(raw_characters())
